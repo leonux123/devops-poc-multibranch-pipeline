@@ -16,6 +16,9 @@ pipeline {
             steps {
                 sh 'echo "Publish Over SSH..."'
                 sh 'scp -v -i /home/leonux/aws/MyKeyPair.pem -o StrictHostKeyChecking=no target/universal/poc_admin-1.0.zip ec2-user@52.36.62.178:poc/'
+                sh 'ssh -i /home/leonux/.ssh/MyKeyPair.pem ec2-user@52.36.62.178 ./deliver.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh 'ssh -i /home/leonux/.ssh/MyKeyPair.pem ec2-user@52.36.62.178 ./kill.sh'
             }
         }
     }
